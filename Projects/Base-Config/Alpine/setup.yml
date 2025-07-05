@@ -6,12 +6,20 @@
       apk:
         name: neovim
         state: present
+    - name: Ensure python is installed
+      apk:
+        name: python3
+        state: present
     - name: Ensure pip is installed
       apk:
         name: py3-pip
         state: present
-#    - name: Ensure pip is installed
-#      command: python3 -m ensurepip --upgrade
-#      args:
-#        creates: /usr/bin/pip3
-
+    - name: Ensure edge/testing repository is added
+      ansible.builtin.lineinfile:
+        path: /etc/apk/repositories
+        line: "http://dl-cdn.alpinelinux.org/alpine/edge/testing"
+        state: present
+    - name: Ensure neofetch is installed
+      apk:
+        name: neofetch
+        state: present
