@@ -1,0 +1,17 @@
+- name: Configure Alpine Homelab
+  hosts: alpine
+  become: true
+  tasks:
+    - name: Ensure neovim is installed
+      apk:
+        name: neovim
+        state: present
+    - name: Ensure pip is installed
+      apk:
+        name: py3-pip
+        state: present
+#    - name: Ensure pip is installed
+#      command: python3 -m ensurepip --upgrade
+#      args:
+#        creates: /usr/bin/pip3
+
