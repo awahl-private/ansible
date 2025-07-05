@@ -23,3 +23,11 @@
       apk:
         name: neofetch
         state: present
+    - name: Ensure git is installed
+      apk:
+        name: git
+        state: present
+    - name: Ensure tmux is installed
+      apk:
+        name: tmux
+        state: present

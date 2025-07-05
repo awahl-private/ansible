@@ -1,0 +1,20 @@
+- name: Configure Alpine Homelab
+  hosts: alpine
+  become: true
+  tasks:
+    - name: Ensure python3 and venv module are installed
+      ansible.builtin.package:
+        name:
+          - python3
+          - py3-virtualenv
+        state: present
+    
+    - name: Create a virtual environment
+      ansible.builtin.command: python3 -m venv /opt/discord-bot-venv
+      args:
+        creates: /opt/discord-bot-venv
+    
+    - name: Install discord.py in the virtual environment
+      ansible.builtin.command: /opt/discord-bot-venv/bin/pip install -U discord.py
+      args:
+        creates: /opt/discord-bot-venv/lib/python3.*/site-packages/discord
