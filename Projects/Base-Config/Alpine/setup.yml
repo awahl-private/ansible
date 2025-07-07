@@ -9,17 +9,19 @@
         state: present
       loop:
         - "http://dl-cdn.alpinelinux.org/alpine/v3.22/main"
+        - "http://dl-cdn.alpinelinux.org/alpine/v3.22/community"
         - "http://dl-cdn.alpinelinux.org/alpine/edge/testing"
         - "http://dl-cdn.alpinelinux.org/alpine/edge/community"
-        - "http://dl-cdn.alpinelinux.org/alpine/v3.22/community"
-    - name: pacages are installed
+    - name: Ensure pacages are installed
       apk:
         name: "{{item}}"
         state: present
       loop:
+        - man-pages
         - tmux
-        - git
         - neovim
         - python3
         - py3-pip
         - neofetch
+        - git
+        - github-cli
