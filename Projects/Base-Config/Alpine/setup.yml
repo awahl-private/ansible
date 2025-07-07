@@ -2,32 +2,24 @@
   hosts: alpine
   become: true
   tasks:
-    - name: Ensure neovim is installed
-      apk:
-        name: neovim
-        state: present
-    - name: Ensure python is installed
-      apk:
-        name: python3
-        state: present
-    - name: Ensure pip is installed
-      apk:
-        name: py3-pip
-        state: present
-    - name: Ensure edge/testing repository is added
+    - name: Ensure all repos are added
       ansible.builtin.lineinfile:
         path: /etc/apk/repositories
-        line: "http://dl-cdn.alpinelinux.org/alpine/edge/testing"
+        line: "{{item}}"
         state: present
-    - name: Ensure neofetch is installed
+      loop:
+        - "http://dl-cdn.alpinelinux.org/alpine/v3.22/main"
+        - "http://dl-cdn.alpinelinux.org/alpine/edge/testing"
+        - "http://dl-cdn.alpinelinux.org/alpine/edge/community"
+        - "http://dl-cdn.alpinelinux.org/alpine/v3.22/community"
+    - name: pacages are installed
       apk:
-        name: neofetch
+        name: "{{item}}"
         state: present
-    - name: Ensure git is installed
-      apk:
-        name: git
-        state: present
-    - name: Ensure tmux is installed
-      apk:
-        name: tmux
-        state: present
+      loop:
+        - tmux
+        - git
+        - neovim
+        - python3
+        - py3-pip
+        - neofetch
